@@ -1,0 +1,50 @@
+*{
+		margin:0;
+		padding:0;
+		border:0;}
+		#box{
+		width:450px;
+		height:300px;
+		border:1px solid #cc66ff;
+		background:#ccccff;
+		margin:100px auto;
+		position:relative;
+		overflow:hidden;
+		}
+		#box ul {
+		width:400px;
+		height:300px;
+		list-style:none;
+		position:absolute;
+		top:0px;
+		left:0px;
+		
+		}
+		ul img{
+		width:400px;
+		height:300px;
+		vertical-align:bottom;
+		
+		}
+		
+		#btn{
+		height:160px;
+		position:absolute;
+		left:410px;
+		top:65px;
+		z-index:1;
+		}
+	    
+		#btn a{
+		width:30px;
+		height:30px;
+		display:block;
+		margin-bottom:20px;
+		z-index:2;}
+		#btn img{
+		width:30px;
+		height:30px;}
+		.active{
+		
+		border:1px solid #ff00cc;
+		}

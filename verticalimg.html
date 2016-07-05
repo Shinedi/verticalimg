@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>垂直轮播图</title>
+	<style>
+		*{
+		margin:0;
+		padding:0;
+		border:0;}
+		#box{
+		width:450px;
+		height:300px;
+		border:1px solid #cc66ff;
+		background:#ccccff;
+		margin:100px auto;
+		position:relative;
+		overflow:hidden;
+		}
+		#box ul {
+		width:400px;
+		height:300px;
+		list-style:none;
+		position:absolute;
+		top:0px;
+		left:0px;
+		
+		}
+		ul img{
+		width:400px;
+		height:300px;
+		vertical-align:bottom;
+		
+		}
+		
+		#btn{
+		height:160px;
+		position:absolute;
+		left:410px;
+		top:65px;
+		z-index:1;
+		}
+	    
+		#btn a{
+		width:30px;
+		height:30px;
+		display:block;
+		margin-bottom:20px;
+		z-index:2;}
+		#btn img{
+		width:30px;
+		height:30px;}
+		.active{
+		
+		border:1px solid #ff00cc;
+		}
+	</style>
+</head>
+<body>
+<div id="box">
+	<div id="btn">
+		<a href="#" class="active"><img src=images/17.jpg /></a>
+		<a href="#"><img src=images/18.jpg /></a>
+		<a href="#"><img src=images/22.jpg /></a>
+		<a href="#"><img src=images/21.jpg /></a>
+	</div>
+	<ul>
+    	<li><img src=images/17.jpg /></li>
+        <li><img src=images/18.jpg /></li>
+        <li><img src=images/22.jpg /></li>
+        <li><img src=images/21.jpg /></li>
+    </ul>
+</div>
+<script type="text/javascript" src="JS/sport.js"></script>
+<script>
+	window.onload=function(){
+		var obox=document.getElementById("box");
+		var oul=obox.getElementsByTagName("ul")[0];
+		var aimg=oul.getElementsByTagName("img");
+		
+		var obtn=document.getElementById("btn");
+		var abtn=obtn.getElementsByTagName("a");
+		//alert(cssStyle(aimg[0],'height'));
+		var timer=null;
+		var count=1;
+		var m=2;
+		var flag=1;
+		//给每个小图片添加onclick事件(并添加索引)
+		for(var i=0;i<abtn.length;i++)
+		{
+			abtn[i].index=i;
+			abtn[i].onclick=function()
+			{
+				for(var j=0;j<abtn.length;j++)
+				{
+					abtn[j].className='';
+				}
+				//设置当前小图片的样式
+				abtn[this.index].className="active";
+				//赋值
+				if(flag==-1)
+				{
+					m=this.index;
+				}
+				count=this.index;
+				//移动
+				sport(oul,'top',-(this.index)*cssStyle(aimg[0],'height'));
+			};
+		}
+		//设置oul高度
+		cssStyle(oul,'height',cssStyle(aimg[0],'height')*aimg.length);
+		//设置定时器
+		timer=setInterval(function(){
+			//向下移
+			if(flag==1 && count<aimg.length)
+			{
+				for(var i=0;i<abtn.length;i++)
+				{
+					abtn[i].className='';
+				}
+				abtn[count].className="active";
+				sport(oul,'top',-(count++)*cssStyle(aimg[0],'height'));
+				//如果移动到最后一张照片时，设置flag为-1，确保下次进入定时器是向上移
+				if(count==4){flag=-1;}
+			}
+			else
+			{
+				//向上移
+				if(flag==-1 && m>=0)
+				{
+			       for(var i=0;i<abtn.length;i++)
+					{
+						abtn[i].className='';
+					}
+				  
+				  abtn[m].className="active";
+				  sport(oul,'top',-(m--)*cssStyle(aimg[0],'height'));
+				  //如果移动到第一张照片时，设置flag为1，确保下次进入定时器是向下移
+				  if(m==-1) {count=1;flag=1;m=2}  
+				}	
+				
+			}
+		
+		},3000);
+	};
+</script>
+</body>
+</html>
